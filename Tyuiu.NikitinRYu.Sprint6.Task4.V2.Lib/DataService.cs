@@ -1,4 +1,5 @@
-﻿using tyuiu.cources.programming.interfaces.Sprint6;
+﻿using System;
+using tyuiu.cources.programming.interfaces.Sprint6;
 
 namespace Tyuiu.NikitinRYu.Sprint6.Task4.V2.Lib
 {
@@ -6,19 +7,29 @@ namespace Tyuiu.NikitinRYu.Sprint6.Task4.V2.Lib
     {
         public double[] GetMassFunction(int startValue, int stopValue)
         {
-            double[] valueArray;
-            int len = (stopValue - startValue) + 1;
-            valueArray = new double[len];
+            int len = stopValue - startValue + 1;
+            double[] valueArray = new double[len];
 
-            double y;
-            int count = 0;
-
+            int index = 0;
             for (int x = startValue; x <= stopValue; x++)
             {
-                y = Math.Cos(x) / (0.7 - Math.Sin(x)) * (12 * x) + 2;
-                y = Math.Round(y, 2);
-                valueArray[count] = y;
-                count++;
+                if (Math.Abs(x - 0.7) < 0.0001)
+                {
+                    valueArray[index] = 0;
+                }
+                else
+                {
+                    double numerator = Math.Cos(x);          
+                    double denominator = x - 0.7;             
+                    double term1 = numerator / denominator;   
+
+                    double term2 = Math.Sin(x) * 12 * x;      
+
+                    double result = term1 - term2 + 2;        
+
+                    valueArray[index] = Math.Round(result, 2);
+                }
+                index++;
             }
 
             return valueArray;
