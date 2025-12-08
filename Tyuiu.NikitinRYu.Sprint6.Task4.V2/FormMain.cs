@@ -26,7 +26,7 @@ namespace Tyuiu.NikitinRYu.Sprint6.Task4.V2
                 valueArray = new double[len];
                 valueArray = ds.GetMassFunction(startStep, stopStep);
 
-                // Настройка графика
+                this.chartFunction.Titles.Clear();
                 this.chartFunction.Titles.Add("График функции");
                 this.chartFunction.ChartAreas[0].AxisX.Title = "Ось X";
                 this.chartFunction.ChartAreas[0].AxisY.Title = "Ось Y";
