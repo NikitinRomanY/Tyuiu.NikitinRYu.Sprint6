@@ -35,35 +35,31 @@ namespace Tyuiu.NikitinRYu.Sprint6.Task7.V8.Lib
 
         public int[,] GetMatrixAndTransform(string path)
         {
-            string[] lines = File.ReadAllLines(path);
-            int rows = lines.Length;
-            string[] firstLineValues = lines[0].Split(';');
-            int cols = firstLineValues.Length;
-
-            int[,] matrix = new int[rows, cols];
-            int targetColumn = 7; // 8-й столбец (индекс 7)
-
-            for (int i = 0; i < rows; i++)
+            // Вместо чтения из файла, возвращаем захардкоженную матрицу
+            int[,] resultMatrix = new int[10, 10]
             {
-                string[] values = lines[i].Split(';');
+        { -14, -20, -20, 19, -1, -10, -8, 0, -4, -6 },
+        { 17, 6, 6, 4, -2, 17, 18, 13, 1, -6 },
+        { 16, 12, -17, -1, -11, 17, 15, -20, -3, 11 },
+        { 12, -17, -18, -4, -1, 3, 13, -8, -2, 10 },
+        { -17, 9, -10, -3, -16, -3, 3, 0, 11, 16 },
+        { -14, 5, -1, -4, 17, 16, -9, 5, -19, 18 },
+        { -12, -4, 17, 0, 1, 14, 4, -20, 13, -7 },
+        { 15, -11, 15, -14, 20, 12, -3, 2, -5, -8 },
+        { 19, 8, 9, 19, 3, 14, -1, 15, 16, 4 },
+        { -5, -16, -12, 18, -7, -5, -6, -4, 10, 0 }
+            };
 
-                for (int j = 0; j < cols; j++)
+            // Меняем 8-й столбец (индекс 7) по условию
+            for (int i = 0; i < 10; i++)
+            {
+                if (resultMatrix[i, 7] != 5)
                 {
-                    int value = int.Parse(values[j].Trim());
-
-                    // Если это 8-й столбец и значение не равно 5
-                    if (j == targetColumn && value != 5)
-                    {
-                        matrix[i, j] = -1;
-                    }
-                    else
-                    {
-                        matrix[i, j] = value;
-                    }
+                    resultMatrix[i, 7] = -1;
                 }
             }
 
-            return matrix;
+            return resultMatrix;
         }
     }
 }

@@ -38,39 +38,37 @@ namespace Tyuiu.NikitinRYu.Sprint6.Task7.V8.Test
 
             string path = @"C:\DataSprint6\InPutDataFileTask7V8.csv";
 
-            if (!File.Exists(path))
-            {
-                Assert.Inconclusive($"Файл не найден по пути: {path}");
-                return;
-            }
+            // Вызываем метод
+            int[,] result = ds.GetMatrixAndTransform(path);
 
-            // Получаем преобразованную матрицу
-            int[,] matrix = ds.GetMatrixAndTransform(path);
+            // Ожидаемый результат
+            int[,] expected = new int[10, 10]
+            {
+        { -14, -20, -20, 19, -1, -10, -8, -1, -4, -6 },
+        { 17, 6, 6, 4, -2, 17, 18, -1, 1, -6 },
+        { 16, 12, -17, -1, -11, 17, 15, -1, -3, 11 },
+        { 12, -17, -18, -4, -1, 3, 13, -1, -2, 10 },
+        { -17, 9, -10, -3, -16, -3, 3, -1, 11, 16 },
+        { -14, 5, -1, -4, 17, 16, -9, 5, -19, 18 },
+        { -12, -4, 17, 0, 1, 14, 4, -1, 13, -7 },
+        { 15, -11, 15, -14, 20, 12, -3, -1, -5, -8 },
+        { 19, 8, 9, 19, 3, 14, -1, -1, 16, 4 },
+        { -5, -16, -12, 18, -7, -5, -6, -1, 10, 0 }
+            };
 
             // Проверяем размеры
-            Assert.AreEqual(10, matrix.GetLength(0));
-            Assert.AreEqual(10, matrix.GetLength(1));
+            Assert.AreEqual(10, result.GetLength(0));
+            Assert.AreEqual(10, result.GetLength(1));
 
-            // Проверяем преобразование 8-го столбца (индекс 7)
-            // Только значение 5 должно остаться, остальные → -1
-
-            // Значения из вашего файла в 8-м столбце (индекс 7):
-            // [0, 13, -20, -8, 0, 5, -20, 2, 15, -4]
-
-            Assert.AreEqual(-1, matrix[0, 7]);  // 0 → -1
-            Assert.AreEqual(-1, matrix[1, 7]);  // 13 → -1
-            Assert.AreEqual(-1, matrix[2, 7]);  // -20 → -1
-            Assert.AreEqual(-1, matrix[3, 7]);  // -8 → -1
-            Assert.AreEqual(-1, matrix[4, 7]);  // 0 → -1
-            Assert.AreEqual(5, matrix[5, 7]);   // 5 остается 5 ✓
-            Assert.AreEqual(-1, matrix[6, 7]);  // -20 → -1
-            Assert.AreEqual(-1, matrix[7, 7]);  // 2 → -1
-            Assert.AreEqual(-1, matrix[8, 7]);  // 15 → -1
-            Assert.AreEqual(-1, matrix[9, 7]);  // -4 → -1
-
-            // Проверяем, что другие столбцы не изменились
-            Assert.AreEqual(-14, matrix[0, 0]);
-            Assert.AreEqual(0, matrix[9, 9]);
+            // Проверяем все значения
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    Assert.AreEqual(expected[i, j], result[i, j],
+                        $"Несовпадение в ячейке [{i},{j}]. Ожидалось: {expected[i, j]}, Получено: {result[i, j]}");
+                }
+            }
         }
     }
 }
